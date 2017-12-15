@@ -3,12 +3,20 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml"
 	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="acao" value="#{animalBean.acao}" />
+			<f:viewParam name="idAnimal" value="#{animalBean.idAnimal}" />
+			<f:event listener="#{animalBean.listarAnimalId}" type="preRenderView" />
+		</f:metadata>
+	</ui:define>
 
 	<ui:define name="corpo">
 
 		<title>Cadastrar Animal</title>
 
-		<h:form>
+		<h:form id="frmCadAnimal">
 
 			<h2>Animal</h2>
 
@@ -18,19 +26,23 @@
 
 					<p:separator />
 
-					<h:panelGrid columns="4" cellpadding="10">
+					<h:panelGrid id="pnlGrdCadAnimal" columns="4" cellpadding="10">
 
 						<p:outputLabel value="Genero:" />
-						<p:inputText value="" size="55" placeholder="Ex: M/F" />
+						<p:inputText  size="55" placeholder="Ex: M/F" value="#{animalBean.animalCadastrar.genero}"
+						readonly="#{animalBean.acao == 'excluir'}" />
 
 						<p:outputLabel value="Classificacao" />
-						<p:inputMask mask="" placeholder="Ex: Corte/Leiteiro " size="55" />
+						<p:inputMask mask="" placeholder="Ex: Corte/Leiteiro " size="55" value="#{animalBean.animalCadastrar.classificacao}"
+						readonly="#{animalBean.acao == 'excluir'}" />
 
 						<p:outputLabel value="peso" />
-						<p:inputMask mask="" placeholder="Ex: 200,20" size="55" />
+						<p:inputMask mask="" placeholder="Ex: 200,20" size="55" value="#{animalBean.animalCadastrar.peso}"
+						readonly="#{animalBean.acao == 'excluir'}"/>
 
 						<p:outputLabel value="Data de Nascimento:" />
-						<p:calendar locale="pt"    pattern="dd/MM/yyyy" placeholder="00/00/0000"/>
+						<p:calendar locale="pt"    pattern="dd/MM/yyyy" placeholder="00/00/0000" value="#{animalBean.animalCadastrar.dataNascimento}"
+						readonly="#{animalBean.acao == 'excluir'}"/>
 
 
 
@@ -40,11 +52,18 @@
 
 
 			</p:tabView>
-		</h:form>
-
-		<h:form>
+		
 			<p:panelGrid style="border:0px">
-				<p:commandButton value="Salvar" />
+				<p:commandButton value="Salvar" actionListener="#{animalBean.salvar}"
+					update=":msgGlobal :frmCadAnimal"
+					rendered="#{animalBean.acao == 'novo'}"/>
+					
+				<p:commandButton value="Excluir" actionListener="#{animalBean.excluir}"
+					update=":msgGlobal"
+					rendered="#{animalBean.acao == 'excluir'}"  />
+				<p:commandButton value="Editar" actionListener="#{animalBean.editar}"
+					update=":msgGlobal"
+					rendered="#{animalBean.acao == 'editar'}" />
 
 			</p:panelGrid>
 

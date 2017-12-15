@@ -1,6 +1,9 @@
 package br.com.engenhariareversa.util;
 
+import java.util.Map;
+
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 public class FacesUtil {
@@ -17,4 +20,13 @@ public class FacesUtil {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		facesContext.addMessage(null, facesMessage);
 	}
+	
+	public static String getParam(String name) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Map<String, String> parametros = externalContext.getRequestParameterMap();
+		String valor =  parametros.get(name);
+		return valor;
+	}
+	
 }

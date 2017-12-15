@@ -1,6 +1,7 @@
 <ui:composition 
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui">
 	
@@ -9,7 +10,9 @@
 			<p:panelMenu style="width:250px">
 			
 				<p:submenu label="ANIMAL">
-					<p:menuitem value="Cadastrar Animal" icon="icon-users" outcome="animalCadastrar.xhtml" />
+					<p:menuitem value="Cadastrar Animal" icon="icon-users" outcome="animalCadastrar.xhtml" >
+						<f:param name="acao" value="novo" />
+					</p:menuitem>
 					<p:menuitem value="Listar Animal" icon="icon-user" outcome="animalListar.xhtml"/>	
 				</p:submenu>
 				

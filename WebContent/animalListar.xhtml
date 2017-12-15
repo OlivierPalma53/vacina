@@ -5,9 +5,12 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 
-
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{animalBean.listarAnimais}" type="preRenderView" />
+		</f:metadata>
+	</ui:define>
 	<ui:define name="corpo">
-
 
 		<title>Listar Animal</title>
 
@@ -20,40 +23,44 @@
 
 				<p:separator />
 
-				<h:form>
+				<h:form> 
 					
-					<p:outputLabel value="Classificação"/>
-					<p:inputText size="50"/>
-					<p:commandButton value="Buscar"/>
-					
-					<p:separator /> 
-					
-					<p:dataTable emptyMessage="Nenhum Registro Encontrado">
+					<p:dataTable emptyMessage="Nenhum Registro Encontrado"
+						value="#{animalBean.lstAnimais}" 
+						filteredValue="#{animalBean.lstAnimaisFind}"
+						var="animalCursor"
+						rows="3" paginator="true">
 
 						<p:column headerText="Id">
-							<h:outputText value="" />
+							<h:outputText value="#{animalCursor.idAnimal}" />
 						</p:column>
 
-						<p:column headerText="Classificação">
-							<h:outputText value="" />
+						<p:column headerText="Classificação" filterBy="#{animalCursor.classificacao}" sortBy="#{animalCursor.classificacao}">
+							<h:outputText value="#{animalCursor.classificacao}" />
 						</p:column>
 
-						<p:column headerText="Genero">
-							<h:outputText value="" />
+						<p:column headerText="Genero" filterBy="#{animalCursor.genero}" sortBy="#{animalCursor.genero}">
+							<h:outputText value="#{animalCursor.genero}" />
 						</p:column>
 
 						<p:column headerText="Peso">
-							<h:outputText value="" />
+							<h:outputText value="#{animalCursor.peso}" />
 						</p:column>
 
 						<p:column headerText="Data de Nascimento">
-							<h:outputText value="" />
+							<h:outputText value="#{animalCursor.dataNascimento}" />
 						</p:column>
 
 						<p:column headerText="Ações">
-							<p:commandButton icon="fa fa-fw fa-edit" />
-							<p:commandButton icon="fa fa-fw fa-remove" />
-							<p:commandButton icon="fa fa-fw fa-eyedropper" />
+							<p:button icon="fa fa-fw fa-edit" outcome="animalCadastrar.xhtml">
+								<f:param name="acao" value="editar" />
+								<f:param name="idAnimal" value="#{animalCursor.idAnimal}" />
+							</p:button>
+							<p:button icon="fa fa-fw fa-remove" outcome="animalCadastrar.xhtml">
+								<f:param name="acao" value="excluir" />
+								<f:param name="idAnimal" value="#{animalCursor.idAnimal}" />
+							</p:button>
+							<p:button icon="fa fa-fw fa-eyedropper" />
 						</p:column>
 
 

@@ -52,4 +52,10 @@
 	        <extension>woff2</extension>
 	        <mime-type>application/font-woff2</mime-type>
     </mime-mapping> 
+    
+    <listener>
+    		<listener-class>
+    			br.com.engenhariareversa.util.ContextListener
+    		</listener-class>
+    </listener>
 </web-app>
